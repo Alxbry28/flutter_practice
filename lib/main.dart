@@ -4,9 +4,15 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
 
+class _MyAppState extends State<MyApp> {
+  bool myNewButton = false;
+  String myText = "Hello";
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,6 +27,12 @@ class MyApp extends StatelessWidget {
             Text("My Body"),
             Text("My Body"),
             Text("My Body"),
+            Center(child: ElevatedButton(onPressed: () {
+              setState(() {
+                myNewButton = !myNewButton;
+                debugPrint(myNewButton.toString());
+              });
+            }, child: Text("Click"))),
             Container(
               color: Colors.yellow,
               height: 100,
@@ -28,7 +40,7 @@ class MyApp extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text("My Row"),
+                  Text(myNewButton ? "Hello": "Hi" ),
                   Text("My Row"),
                   Text("My Row"),
                 ],
