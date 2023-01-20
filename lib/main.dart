@@ -11,6 +11,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  int num = 0;
+
   bool myNewButton = false;
   String myText = "Hello";
   @override
@@ -22,30 +24,31 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: num == 0
+              ? MainAxisAlignment.start
+              : num == 2
+                  ? MainAxisAlignment.end
+                  : MainAxisAlignment.center,
           children: [
-            Text("My Body"),
-            Text("My Body"),
-            Text("My Body"),
-            Center(child: ElevatedButton(onPressed: () {
-              setState(() {
-                myNewButton = !myNewButton;
-                debugPrint(myNewButton.toString());
-              });
-            }, child: Text("Click"))),
-            Container(
-              color: Colors.yellow,
-              height: 100,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(myNewButton ? "Hello": "Hi" ),
-                  Text("My Row"),
-                  Text("My Row"),
-                ],
-              ),
-            )
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: num == 0
+                  ? MainAxisAlignment.start
+                  : num == 2
+                      ? MainAxisAlignment.end
+                      : MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        myNewButton = !myNewButton;
+                        num++;
+                        num = (num >= 3) ? 0 : num;
+                      });
+                    },
+                    child: const Text("Click")),
+              ],
+            ),
           ],
         ),
         bottomNavigationBar: BottomAppBar(
